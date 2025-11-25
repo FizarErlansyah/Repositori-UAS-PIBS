@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Profile - Fizar Erlansyah</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <img src="foto.jpg" alt="Profile Picture" class="profile-pic">
+        <div class="header-text">
+            <h1>FIZAR ERLANSYAH</h1>
+            <p>Information System | Jaya Development University</p>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <nav class="side-navbar">
+            <ul>
+                <li><a href="#" onclick="showContent('biodata')">Biodata</a></li>
+                <li><a href="#" onclick="showContent('education')">Education</a></li>
+                <li><a href="#" onclick="showContent('experience')">Experience</a></li>
+                <li><a href="#" onclick="showContent('skills')">Skills</a></li>
+                <li><a href="#" onclick="showContent('publication')">Publicatizon</a></li>
+            </ul>
+        </nav>
+
+        <section class="main-content">
+            <div id="biodata" class="content-item">
+                <h2>Biodata</h2>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <span>NAME</span>
+                        <h4>Fizar Erlansyah</h4>
+                    </div>
+                    <div class="grid-item">
+                        <span>STUDY PROGRAM</span>
+                        <h4>Information System</h4>
+                    </div>
+                    <div class="grid-item">
+                        <span>PLACE OF BIRTH</span>
+                        <h4>Brebes, Central Java</h4>
+                    </div>
+                    <div class="grid-item">
+                        <span>DATE OF BIRTH</span>
+                        <h4>June 25, 2006</h4>
+                    </div>
+                     <div class="grid-item">
+                        <span>ADDRESS</span>
+                        <h4>BSD City, South Tangerang</h4>
+                    </div>
+                    <div class="grid-item">
+                        <span>UNIVERSITY</span>
+                        <h4>Jaya Development University</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id="education" class="content-item hidden">
+                <h2>Education History</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2012 - 2018</div>
+                        <div class="timeline-content">
+                            <h3>MIS Raudlatul Irfan</h3>
+                            <p>Completed elementary school education.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2018 - 2021</div>
+                        <div class="timeline-content">
+                            <h3>MTsN 5 Tangerang</h3>
+                            <p>Completed junior high school education.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021 - 2024</div>
+                        <div class="timeline-content">
+                            <h3>SMK Pustek Serpong</h3>
+                            <p>Completed senior high school education.</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-date">2024 - 2028</div>
+                        <div class="timeline-content">
+                            <h3>Jaya Development University</h3>
+                            <p>Active student of the Information Systems study program.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="experience" class="content-item hidden">
+                <h2>Experience</h2>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <p>Tax Administration Intern - KPP Pratama Tigaraksa (2023)</p>
+                    </div>
+                    <div class="experience-item">
+                        <p>Secretary DE'GREEN EXPO Committee (2024)</p>
+                    </div>
+                     <div class="experience-item">
+                        <p>UI Designer (2025)</p>
+                    </div>
+                    <div class="experience-item">
+                        <p>Secretary - Company Visit Committee (2025)</p>
+                    </div>
+                    <div class="experience-item">
+                        <p>Sponsorship Division - GIDHUB Event (2025)</p>
+                    </div>
+                    <div class="experience-item">
+                        <p>Event Chairperson - Information System Department Gathering (2025)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="skills" class="content-item hidden">
+                <h2>Skills</h2>
+                <div class="grid-container">
+                    <div class="skill-card">
+                        <h5>Web Development</h5>
+                        <p>HTML, CSS, JavaScript</p>
+                    </div>
+                    <div class="skill-card">
+                        <h5>Programming</h5>
+                        <p>Python, PHP, Java</p>
+                    </div>
+                    <div class="skill-card">
+                        <h5>Database</h5>
+                        <p>MySQL</p>
+                    </div>
+                    <div class="skill-card">
+                        <h5>Design</h5>
+                        <p>Figma & Canva</p>
+                    </div>
+                    <div class="skill-card">
+                        <h5>Tools</h5>
+                        <p>Git & VS Code</p>
+                    </div>
+                    <div class="skill-card">
+                        <h5>Soft Skills</h5>
+                        <p>Teamwork & Problem Solving</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="publication" class="content-item hidden">
+                <h2>Publication</h2>
+                <p>No publications at this time.</p>
+            </div>
+        </section>
+
+        <aside class="side-aside">
+            <h3>Hobbies & Interests</h3>
+            <div class="hobbies-container">
+                <div class="hobby-card">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>Gaming</span>
+                </div>
+                <div class="hobby-card">
+                    <i class="fa-solid fa-car"></i>
+                    <span>Automotive</span>
+                </div>
+                <div class="hobby-card">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Programming</span>
+                </div>
+                <div class="hobby-card">
+                    <i class="fa-solid fa-palette"></i>
+                    <span>Design</span>
+                </div>
+                <div class="hobby-card">
+                    <i class="fa-solid fa-film"></i>
+                    <span>Watching Movies</span>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/itzfizar?igsh=cDNvdjI2bGk0bWt4" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/qr/4LSDIVD5XSCDL1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://youtube.com/@fizar.erlansyah?si=bdkdsrPai4PMbOX1" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/fizar-erlansyah-311984372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="copyright">
+            <p>Copyright &copy; 2025. All Rights Reserved</p>
+        </div>
+        <div class="footer-info">
+            <h4>FIZARS WEB</h4>
+            <p>Try to be strong</p>
+        </div>
+    </footer>
+
+    <script>
+        function showContent(id) {
+            const contentItems = document.querySelectorAll('.content-item');
+            contentItems.forEach(item => {
+                item.classList.add('hidden');
+            });
+
+            const selectedContent = document.getElementById(id);
+            if (selectedContent) {
+                selectedContent.classList.remove('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showContent('biodata');
+        });
+    </script>
+
+</body>
+</html>
