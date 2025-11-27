@@ -86,14 +86,12 @@ Hal-hal yang bisa ditingkatkan (belum diterapkan penuh):
 ## 👥 Anggota Kelompok
 Proyek ini dibuat oleh Kelompok UAS PIBS:
 
-| No | Nama Lengkap | Catatan |
-|----|-------------------------------|---------|
-| 1  | Arae Mahesa Almera            | |
-| 2  | Panji Kurnia Akbar            | |
-| 3  | Mochammad Lintar Arya Dwiputra| |
-| 4  | Fizar Erlansyah               | |
-
-Jika ingin menambahkan NIM dan peran, silakan informasikan dan tabel akan diperbarui.
+| No | NIM        | Nama Lengkap                  |
+|----|------------|-------------------------------|
+| 1  | 2024081015 | Arae Mahesa Almera            | 
+| 2  | 2024081024 | Panji Kurnia Akbar            | 
+| 3  | 2024081032 | Mochammad Lintar Arya Dwiputra| 
+| 4  | 2024081041 | Fizar Erlansyah               | 
 
 ## 🌐 Dependensi Eksternal
 - [Font Awesome 6](https://cdnjs.com/) untuk ikon.
