@@ -1,0 +1,29 @@
+{
+  "biodata": {
+    "nim": "2024081032",
+    "nama": "Mochammad Lintar Arya Dwiputra",
+    "tempat_lahir": "Jakarta",
+    "tanggal_lahir": "July 20, 2006",
+    "alamat": "Puri Bintaro Hijau Blok F3 No.21"
+  },
+  "education": [
+    {
+      "tahun": "2024 - Present",
+      "institusi": "Jaya Development University",
+      "deskripsi": "Active student of Information Systems study program."
+    }
+  ],
+  "experience": [
+    "Operator - Prodi Gathering Sistem Informasi 2025"
+  ],
+  "skills": {
+    "Programming": "Java, Python, HTML",
+    "Database": "MySQL",
+    "Tools": "NetBeans, VS Code"
+  },
+  "hobbies": [
+    {"icon": "fa-gamepad", "name": "Gaming"},
+    {"icon": "fa-music", "name": "Music"}
+  ],
+  "publication": "Paper Jurnal Machine Learning Rekomendasi Film"
+}

@@ -1,0 +1,55 @@
+{
+  "biodata": {
+    "nim": "2024081041",
+    "nama": "Fizar Erlansyah",
+    "tempat_lahir": "Brebes, Central Java",
+    "tanggal_lahir": "June 25, 2006",
+    "alamat": "BSD City, South Tangerang"
+  },
+  "education": [
+    {
+      "tahun": "2012 - 2018",
+      "institusi": "MIS Raudlatul Irfan",
+      "deskripsi": "Completed elementary school education."
+    },
+    {
+      "tahun": "2018 - 2021",
+      "institusi": "MTsN 5 Tangerang",
+      "deskripsi": "Completed junior high school education."
+    },
+    {
+      "tahun": "2021 - 2024",
+      "institusi": "SMK Pustek Serpong",
+      "deskripsi": "Completed senior high school education."
+    },
+    {
+      "tahun": "2024 - 2028",
+      "institusi": "Jaya Development University",
+      "deskripsi": "Active student of the Information Systems study program."
+    }
+  ],
+  "experience": [
+    "Tax Administration Intern - KPP Pratama Tigaraksa (2023)",
+    "Secretary DE'GREEN EXPO Committee (2024)",
+    "UI Designer (2025)",
+    "Secretary - Company Visit Committee (2025)",
+    "Sponsorship Division - GIDHUB Event (2025)",
+    "Event Chairperson - Information System Department Gathering (2025)"
+  ],
+  "skills": {
+    "Web Development": "HTML, CSS, JavaScript",
+    "Programming": "Python, PHP, Java",
+    "Database": "MySQL",
+    "Design": "Figma & Canva",
+    "Tools": "Git & VS Code",
+    "Soft Skills": "Teamwork & Problem Solving"
+  },
+  "hobbies": [
+    {"icon": "fa-gamepad", "name": "Gaming"},
+    {"icon": "fa-car", "name": "Automotive"},
+    {"icon": "fa-code", "name": "Programming"},
+    {"icon": "fa-palette", "name": "Design"},
+    {"icon": "fa-film", "name": "Watching Movies"}
+  ],
+  "publication": "No publications at this time."
+}

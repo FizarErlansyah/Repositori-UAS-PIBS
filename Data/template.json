@@ -1,0 +1,26 @@
+{
+  "biodata": {
+    "nim": "",
+    "nama": "",
+    "tempat_lahir": "",
+    "tanggal_lahir": "",
+    "alamat": ""
+  },
+  "education": [
+    {
+      "tahun": "",
+      "institusi": "",
+      "deskripsi": ""
+    }
+  ],
+  "experience": [
+    ""
+  ],
+  "skills": {
+    "": ""
+  },
+  "hobbies": [
+    {"icon": "fa-gamepad", "name": ""}
+  ],
+  "publication": ""
+}
