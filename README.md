@@ -84,13 +84,16 @@ Hal-hal yang bisa ditingkatkan (belum diterapkan penuh):
 - Pembatasan akses halaman admin (login / session).
 
 ## 👥 Anggota Kelompok
-| NIM / Identitas | Nama | Peran (Opsional) |
-|-----------------|------------------------------|----------------|
-| (diisi sesuai anggota) | Arae Mahesa Almera        | (Contoh: Dokumentasi) |
-| (diisi sesuai anggota) | Panji Kurnia Akbar        | (Contoh: Backend) |
-| (diisi sesuai anggota) | Mochammad Lintar Arya Dwiputra | (Contoh: Data JSON) |
-| (diisi sesuai anggota) | Fizar Erlansyah           | (Contoh: UI/Integrator) |
-> Silakan sesuaikan peran bila diperlukan.
+Proyek ini dibuat oleh Kelompok UAS PIBS:
+
+| No | Nama Lengkap | Catatan |
+|----|-------------------------------|---------|
+| 1  | Arae Mahesa Almera            | |
+| 2  | Panji Kurnia Akbar            | |
+| 3  | Mochammad Lintar Arya Dwiputra| |
+| 4  | Fizar Erlansyah               | |
+
+Jika ingin menambahkan NIM dan peran, silakan informasikan dan tabel akan diperbarui.
 
 ## 🌐 Dependensi Eksternal
 - [Font Awesome 6](https://cdnjs.com/) untuk ikon.
