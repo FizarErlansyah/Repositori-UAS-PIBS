@@ -97,24 +97,10 @@ Proyek ini dibuat oleh Kelompok UAS PIBS:
 - [Font Awesome 6](https://cdnjs.com/) untuk ikon.
 - CSS custom (`styles.css`).
 
-## 💡 Ide Pengembangan Lanjutan
-- Export profil ke PDF.
-- Tambah autentikasi admin (login + role).
-- Pencarian dan filter profil.
-- API endpoint (JSON response) untuk integrasi.
-- Dark mode toggle.
-
 ## 🧪 Pengujian Manual
 - Tambah data via `adminProfil.php` → Cek muncul di tabel.  
 - Upload JSON → Pastikan section di `index.php` berubah sesuai isi file.  
 - Ganti foto → Pastikan foto tampil dan nama file ter-update.  
 - Hapus data → Pastikan tidak bisa lagi diakses via `index.php?nim=...`.  
-
-## 🌍 English Summary (Optional)
-This is a simple PHP + MySQL + JSON student profile CRUD application. Core identity data is stored in the database while extended profile details are stored per student in individual JSON files. It features profile switching, dynamic sections, JSON template usage, and photo management.
-
-## 📝 Lisensi
-Belum ditentukan. (Tambahkan lisensi seperti MIT bila diperlukan.)
-
 ---
 Dibuat untuk pemenuhan tugas UAS PIBS. Silakan ajukan saran atau perbaikan melalui pull request. 😊
