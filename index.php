@@ -230,10 +230,6 @@ function getJsonData($json_data, $key, $default = '') {
             </div>
         </div>
         <?php 
-        // Tentukan foto profil berdasarkan prioritas:
-        // 1. Dari database (jika kolom foto ada dan terisi)
-        // 2. Dari file foto-{nim}.jpg (jika ada)
-        // 3. Default foto.jpg
         $foto_profil = 'foto.jpg'; // default
         
         if ($profil_data) {
