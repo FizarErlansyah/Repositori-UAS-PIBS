@@ -103,4 +103,4 @@ Proyek ini dibuat oleh Kelompok UAS PIBS:
 - Ganti foto → Pastikan foto tampil dan nama file ter-update.  
 - Hapus data → Pastikan tidak bisa lagi diakses via `index.php?nim=...`.  
 ---
-Dibuat untuk pemenuhan tugas UAS PIBS. Silakan ajukan saran atau perbaikan melalui pull request. 😊
+Dibuat untuk pemenuhan tugas PIBS. Silakan ajukan saran atau perbaikan melalui pull request. 😊
