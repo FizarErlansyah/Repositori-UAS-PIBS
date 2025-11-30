@@ -36,7 +36,6 @@ CREATE TABLE profil (
   foto  VARCHAR(120) DEFAULT 'foto.jpg'
 );
 ```
-> Catatan: Sesuaikan panjang kolom dengan kebutuhan. Tambahan kolom bisa ditambahkan bila diperlukan.
 
 ## 📄 Format File JSON (Per Mahasiswa)
 Contoh template (`Data/template.json`):
