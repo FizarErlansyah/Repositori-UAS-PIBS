@@ -25,5 +25,11 @@
     {"icon": "fa-gamepad", "name": "Gaming"},
     {"icon": "fa-music", "name": "Music"}
   ],
-  "publication": "Paper Jurnal Machine Learning Rekomendasi Film"
+  "publication": "Paper Jurnal Machine Learning Rekomendasi Film",
+  "social_links": {
+    "instagram": "https://www.instagram.com/lintararya",
+    "whatsapp": "https://wa.me/6281234567892",
+    "youtube": "https://youtube.com/@lintararya",
+    "linkedin": "https://www.linkedin.com/in/lintararya"
+  }
 }

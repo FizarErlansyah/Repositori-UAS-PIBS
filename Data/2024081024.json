@@ -41,5 +41,11 @@
     {"icon": "fa-music", "name": "Musik"},
     {"icon": "fa-gamepad", "name": "Gaming"}
   ],
-  "publication": "Heart Failure Risk Prediction Using Machine Learning (Idealis Journal); Effective Communication Styles as the Key to Student Character Development (Journal of Educational Communication)"
+  "publication": "Heart Failure Risk Prediction Using Machine Learning (Idealis Journal); Effective Communication Styles as the Key to Student Character Development (Journal of Educational Communication)",
+  "social_links": {
+    "instagram": "https://www.instagram.com/panjikurnia",
+    "whatsapp": "https://wa.me/6281234567891",
+    "youtube": "https://youtube.com/@panjikurnia",
+    "linkedin": "https://www.linkedin.com/in/panjikurnia"
+  }
 }

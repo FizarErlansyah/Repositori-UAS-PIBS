@@ -51,5 +51,11 @@
     {"icon": "fa-palette", "name": "Design"},
     {"icon": "fa-film", "name": "Watching Movies"}
   ],
-  "publication": "No publications at this time."
+  "publication": "No publications at this time.",
+  "social_links": {
+    "instagram": "https://www.instagram.com/itzfizar?igsh=cDNvdjI2bGk0bWt4",
+    "whatsapp": "https://wa.me/qr/4LSDIVD5XSCDL1",
+    "youtube": "https://youtube.com/@fizar.erlansyah?si=bdkdsrPai4PMbOX1",
+    "linkedin": "https://www.linkedin.com/in/fizar-erlansyah-311984372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+  }
 }

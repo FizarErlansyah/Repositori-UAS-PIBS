@@ -44,5 +44,11 @@
     {"icon": "fa-walking", "name": "Walking"},
     {"icon": "fa-futbol", "name": "Bola"}
   ],
-  "publication": "Graphic Designer untuk Pameran JCAL, Anggota PDD PRIMA, Tools Bot Telegram Otomatis Mengirim Pesan"
+  "publication": "Graphic Designer untuk Pameran JCAL, Anggota PDD PRIMA, Tools Bot Telegram Otomatis Mengirim Pesan",
+  "social_links": {
+    "instagram": "https://www.instagram.com/araemahesa",
+    "whatsapp": "https://wa.me/6281234567890",
+    "youtube": "https://youtube.com/@araemahesa",
+    "linkedin": "https://www.linkedin.com/in/araemahesa"
+  }
 }
