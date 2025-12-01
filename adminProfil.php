@@ -98,6 +98,38 @@
             background: #218838;
             color: white;
         }
+        .json-editor {
+            width: 100%;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            padding: 8px;
+            border: 1px solid #bbb;
+            border-radius: 3px;
+            background: #f9f9f9;
+        }
+        .json-toggle {
+            display: inline-block;
+            margin-left: 96px;
+            margin-top: 8px;
+            padding: 4px 10px;
+            background: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .json-toggle:hover {
+            background: #138496;
+        }
+        .json-editor-wrapper {
+            margin-top: 10px;
+            display: none;
+        }
+        .json-editor-wrapper.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -128,8 +160,26 @@ if (isset($_POST['simpan'])) {
         }
     }
     
-    // Handle upload JSON
-    if (isset($_FILES['json_file']) && $_FILES['json_file']['error'] == 0) {
+    // Handle JSON - prioritas dari textarea, fallback ke upload file
+    $json_saved = false;
+    if (!empty($_POST['json_content'])) {
+        // Dari textarea
+        $json_content = $_POST['json_content'];
+        $json_decoded = json_decode($json_content, true);
+        
+        if ($json_decoded !== null) {
+            $json_dir = "Data/";
+            if (!file_exists($json_dir)) {
+                mkdir($json_dir, 0777, true);
+            }
+            $json_file = $json_dir . $nim . ".json";
+            file_put_contents($json_file, json_encode($json_decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            $json_saved = true;
+        } else {
+            echo "<script>alert('JSON tidak valid! Periksa format JSON.');</script>";
+        }
+    } elseif (isset($_FILES['json_file']) && $_FILES['json_file']['error'] == 0) {
+        // Dari upload file
         $json_dir = "Data/";
         if (!file_exists($json_dir)) {
             mkdir($json_dir, 0777, true);
@@ -143,6 +193,7 @@ if (isset($_POST['simpan'])) {
         
         if ($json_decoded !== null) {
             move_uploaded_file($_FILES['json_file']['tmp_name'], $json_file);
+            $json_saved = true;
         } else {
             echo "<script>alert('File JSON tidak valid!');</script>";
         }
@@ -174,8 +225,24 @@ if (isset($_POST['ubah'])) {
         }
     }
     
-    // Handle upload JSON
-    if (isset($_FILES['json_file']) && $_FILES['json_file']['error'] == 0) {
+    // Handle JSON - prioritas dari textarea, fallback ke upload file
+    if (!empty($_POST['json_content'])) {
+        // Dari textarea
+        $json_content = $_POST['json_content'];
+        $json_decoded = json_decode($json_content, true);
+        
+        if ($json_decoded !== null) {
+            $json_dir = "Data/";
+            if (!file_exists($json_dir)) {
+                mkdir($json_dir, 0777, true);
+            }
+            $json_file = $json_dir . $nim . ".json";
+            file_put_contents($json_file, json_encode($json_decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        } else {
+            echo "<script>alert('JSON tidak valid! Periksa format JSON.');</script>";
+        }
+    } elseif (isset($_FILES['json_file']) && $_FILES['json_file']['error'] == 0) {
+        // Dari upload file
         $json_dir = "Data/";
         if (!file_exists($json_dir)) {
             mkdir($json_dir, 0777, true);
@@ -204,6 +271,7 @@ $edit_nama = "";
 $edit_prodi = "";
 $edit_foto = "";
 $edit_json_exists = false;
+$edit_json_content = "";
 if (isset($_GET['edit'])) {
     $edit_nim = $_GET['edit'];
     $data_edit = mysqli_query($conn, "SELECT * FROM profil WHERE nim='$edit_nim'");
@@ -212,9 +280,12 @@ if (isset($_GET['edit'])) {
     $edit_prodi = $row_edit['prodi'];
     $edit_foto = isset($row_edit['foto']) ? $row_edit['foto'] : '';
     
-    // Cek apakah file JSON sudah ada
+    // Cek apakah file JSON sudah ada dan baca isinya
     $json_file_path = "Data/" . $edit_nim . ".json";
     $edit_json_exists = file_exists($json_file_path);
+    if ($edit_json_exists) {
+        $edit_json_content = file_get_contents($json_file_path);
+    }
 }
 ?>
     <div class="form-crud">
@@ -243,10 +314,15 @@ if (isset($_GET['edit'])) {
                 <input type="file" name="json_file" accept=".json">
                 <?php if ($edit_json_exists) { ?>
                     <small style="display:block;margin-left:96px;color:#666;">JSON tersedia: Data/<?= $edit_nim ?>.json</small>
-                    <small style="display:block;margin-left:96px;color:#999;font-size:11px;">Upload file baru untuk mengganti</small>
+                    <button type="button" class="json-toggle" onclick="toggleJsonEditor()">✏️ Edit JSON Langsung</button>
                 <?php } else { ?>
-                    <small style="display:block;margin-left:96px;color:#999;font-size:11px;">Upload file JSON untuk data lengkap profil</small>
+                    <small style="display:block;margin-left:96px;color:#999;font-size:11px;">Upload file JSON atau isi editor di bawah</small>
+                    <button type="button" class="json-toggle" onclick="toggleJsonEditor()">✏️ Buat JSON Baru</button>
                 <?php } ?>
+                <div class="json-editor-wrapper" id="jsonEditorWrapper">
+                    <textarea name="json_content" id="jsonEditor" class="json-editor" placeholder='Paste atau edit JSON di sini...'><?= htmlspecialchars($edit_json_content) ?></textarea>
+                    <small style="color:#666;font-size:11px;">💡 Tip: Format otomatis saat disimpan. Periksa syntax sebelum submit!</small>
+                </div>
             </div>
             <input type="submit" name="<?= $edit_nim ? 'ubah' : 'simpan' ?>" value="<?= $edit_nim ? 'UBAH' : 'SIMPAN' ?>">
             <?php if ($edit_nim) { ?>
@@ -303,5 +379,21 @@ if (isset($_GET['edit'])) {
         ?>
     </table>
 </div>
+
+<script>
+function toggleJsonEditor() {
+    var wrapper = document.getElementById('jsonEditorWrapper');
+    wrapper.classList.toggle('active');
+}
+
+// Auto-expand textarea saat ada konten
+window.onload = function() {
+    var editor = document.getElementById('jsonEditor');
+    if (editor && editor.value.length > 0) {
+        document.getElementById('jsonEditorWrapper').classList.add('active');
+    }
+}
+</script>
+
 </body>
 </html>
