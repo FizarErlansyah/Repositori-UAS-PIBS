@@ -22,5 +22,11 @@
   "hobbies": [
     {"icon": "fa-gamepad", "name": ""}
   ],
-  "publication": ""
+  "publication": "",
+  "social_links": {
+    "instagram": "",
+    "whatsapp": "",
+    "youtube": "",
+    "linkedin": ""
+  }
 }

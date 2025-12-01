@@ -422,10 +422,35 @@ function getJsonData($json_data, $key, $default = '') {
 
     <footer>
         <div class="social-links">
-            <a href="https://www.instagram.com/itzfizar?igsh=cDNvdjI2bGk0bWt4" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/qr/4LSDIVD5XSCDL1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://youtube.com/@fizar.erlansyah?si=bdkdsrPai4PMbOX1" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.linkedin.com/in/fizar-erlansyah-311984372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <?php
+            // Default social links
+            $default_social = [
+                'instagram' => 'https://www.instagram.com/itzfizar?igsh=cDNvdjI2bGk0bWt4',
+                'whatsapp' => 'https://wa.me/qr/4LSDIVD5XSCDL1',
+                'youtube' => 'https://youtube.com/@fizar.erlansyah?si=bdkdsrPai4PMbOX1',
+                'linkedin' => 'https://www.linkedin.com/in/fizar-erlansyah-311984372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
+            ];
+            
+            // Ambil dari JSON atau gunakan default
+            $social_links = ($json_data && isset($json_data['social_links'])) ? $json_data['social_links'] : $default_social;
+            
+            // Instagram
+            if (!empty($social_links['instagram'])) {
+                echo '<a href="' . htmlspecialchars($social_links['instagram']) . '" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>';
+            }
+            // WhatsApp
+            if (!empty($social_links['whatsapp'])) {
+                echo '<a href="' . htmlspecialchars($social_links['whatsapp']) . '" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>';
+            }
+            // YouTube
+            if (!empty($social_links['youtube'])) {
+                echo '<a href="' . htmlspecialchars($social_links['youtube']) . '" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>';
+            }
+            // LinkedIn
+            if (!empty($social_links['linkedin'])) {
+                echo '<a href="' . htmlspecialchars($social_links['linkedin']) . '" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>';
+            }
+            ?>
         </div>
         <div class="copyright">
             <p>Copyright &copy; 2025. All Rights Reserved</p>
