@@ -1,0 +1,48 @@
+{
+  "biodata": {
+    "nim": "2024081015",
+    "nama": "Arae Mahesa Armera",
+    "tempat_lahir": "Tangerang",
+    "tanggal_lahir": "26 Juni 2006",
+    "alamat": "Perumahan Pondok Besi"
+  },
+  "education": [
+    {
+      "tahun": "2024 - Sekarang",
+      "institusi": "Universitas Pembangunan Jaya",
+      "deskripsi": "S1 Sistem Informasi - IPK: 3.73. Fokus pada pengembangan web, database, dan pemrograman script dengan berbagai project aplikasi web responsive"
+    },
+    {
+      "tahun": "2019 - 2022",
+      "institusi": "SMA Negeri 1 Gunungsindur",
+      "deskripsi": "Jurusan IPA - Nilai UN: 92.5. Aktif di ekstrakurikuler dan kegiatan di SMA"
+    },
+    {
+      "tahun": "2016 - 2019",
+      "institusi": "SMP Negeri 1 Rumpin",
+      "deskripsi": "Nilai UN: 89.0. Pernah Menjabat Sebagai Bendahara OSIS Dan Kegiatan Basket"
+    }
+  ],
+  "experience": [
+    "Social Media Design - Magang di FTD UPJ (Agustus 2025 - Sekarang)",
+    "Magang di SIF - Sistem Informasi UPJ (September 2025 - Sekarang)",
+    "Juara Best Presentation Seminar UMJ - Universitas Muhammadiyah Jakarta (October 2025)"
+  ],
+  "skills": {
+    "Programming": "HTML & CSS (90%), JavaScript (85%), PHP (75%), Python (70%)",
+    "Tools": "Git & GitHub, VS Code, Figma, Bootstrap, MySQL, Postman, React JS, Node.js",
+    "Soft Skills": "Problem Solving, Teamwork, Communication, Time Management, Critical Thinking, Adaptability, Creativity, Leadership"
+  },
+  "hobbies": [
+    {"icon": "fa-gamepad", "name": "Gaming"},
+    {"icon": "fa-code", "name": "Pemrograman"},
+    {"icon": "fa-plane", "name": "Travelling"},
+    {"icon": "fa-basketball-ball", "name": "Basket"},
+    {"icon": "fa-music", "name": "Singing"},
+    {"icon": "fa-paint-brush", "name": "Design"},
+    {"icon": "fa-shopping-cart", "name": "Shopping"},
+    {"icon": "fa-walking", "name": "Walking"},
+    {"icon": "fa-futbol", "name": "Bola"}
+  ],
+  "publication": "Graphic Designer untuk Pameran JCAL, Anggota PDD PRIMA, Tools Bot Telegram Otomatis Mengirim Pesan"
+}

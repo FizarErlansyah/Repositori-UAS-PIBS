@@ -1,0 +1,45 @@
+{
+  "biodata": {
+    "nim": "2024081024",
+    "nama": "Panji Kurnia Akbar",
+    "tempat_lahir": "Jakarta",
+    "tanggal_lahir": "11 Agustus 2006",
+    "alamat": "Jalan Sumatera Gang Al Furqon No. 137, RT.5/RW.7, Ciputat"
+  },
+  "education": [
+    {
+      "tahun": "2024 - Sekarang",
+      "institusi": "Universitas Pembangunan Jaya, Tangerang Selatan",
+      "deskripsi": "Sarjana Sistem Informasi. IPK: 3.79/4.00 — Spesialisasi dalam pengembangan web dan sistem informasi."
+    },
+    {
+      "tahun": "2021 - 2024",
+      "institusi": "SMK Letris Indonesia 1",
+      "deskripsi": "Teknik Komputer dan Jaringan. Score: 85.40 — Aktif dalam mengelola jaringan dan komputer."
+    },
+    {
+      "tahun": "2018 - 2021",
+      "institusi": "MTs Soebono Mantofani",
+      "deskripsi": "Score: 82.04 — Fokus pada iman dan ilmu."
+    }
+  ],
+  "experience": [
+    "Hubungan Masyarakat - GIDHUB (Great Innovation Day HUB) (Mar-Jun 2025)",
+    "Desainer UI - Universitas Ciputra Surabaya (Feb-Mar 2025)",
+    "Teknisi Dukungan TI - BSA Land Group (Jan-Mar 2023)"
+  ],
+  "skills": {
+    "Programming": "HTML5, CSS3, JavaScript, React.js, PHP, Node.js, Python",
+    "Database": "MySQL",
+    "Tools": "Git & GitHub, Figma"
+  },
+  "hobbies": [
+    {"icon": "fa-table-tennis", "name": "Tenis Meja"},
+    {"icon": "fa-film", "name": "Menonton Film"},
+    {"icon": "fa-code", "name": "Pemrograman"},
+    {"icon": "fa-book", "name": "Membaca"},
+    {"icon": "fa-music", "name": "Musik"},
+    {"icon": "fa-gamepad", "name": "Gaming"}
+  ],
+  "publication": "Heart Failure Risk Prediction Using Machine Learning (Idealis Journal); Effective Communication Styles as the Key to Student Character Development (Journal of Educational Communication)"
+}
