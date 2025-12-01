@@ -8,7 +8,7 @@
             background: #fafcff;
         }
         .wrapper {
-            width: 470px;
+            width: 900px;
             margin: 40px auto 0 auto;
             padding: 18px 22px 28px 22px;
             background: #fff;
@@ -21,33 +21,103 @@
             background: #f8fbfc;
             margin-bottom: 24px;
             border-radius: 6px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .form-section {
+            padding: 10px;
+        }
+        .form-section h3 {
+            margin-top: 0;
+            color: #555;
+            font-size: 14px;
+            border-bottom: 2px solid #9a93d1;
+            padding-bottom: 5px;
         }
         .form-row {
             margin-bottom: 11px;
         }
         .form-crud label {
-            display: inline-block;
-            width: 96px;
+            display: block;
             font-weight: bold;
+            margin-bottom: 3px;
+            font-size: 13px;
         }
         .form-crud input[type="text"],
-        .form-crud input[type="file"] {
-            width: 220px;
-            padding: 5px;
+        .form-crud input[type="file"],
+        .form-crud input[type="url"],
+        .form-crud textarea {
+            width: 100%;
+            padding: 6px;
             border: 1px solid #bbb;
             border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        .form-crud textarea {
+            min-height: 60px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
         }
         .form-crud input[type="file"] {
             padding: 3px;
         }
-        .form-crud input[type="submit"] {
+        .form-crud input[type="submit"],
+        .form-crud button[type="button"] {
             margin-top: 8px;
-            padding: 7px 22px;
+            padding: 8px 22px;
             background: #e3e1fa;
             border: 1px solid #9a93d1;
             border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
+        }
+        .form-buttons {
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+        .add-more-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .add-more-btn:hover {
+            background: #218838;
+        }
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+        .dynamic-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .skill-item {
+            display: grid;
+            grid-template-columns: 150px 1fr 40px;
+            gap: 8px;
+            align-items: center;
+        }
+        .hobby-item {
+            display: grid;
+            grid-template-columns: 120px 1fr 40px;
+            gap: 8px;
+            align-items: center;
         }
         table {
             border-collapse: collapse;
@@ -98,38 +168,6 @@
             background: #218838;
             color: white;
         }
-        .json-editor {
-            width: 100%;
-            min-height: 200px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            padding: 8px;
-            border: 1px solid #bbb;
-            border-radius: 3px;
-            background: #f9f9f9;
-        }
-        .json-toggle {
-            display: inline-block;
-            margin-left: 96px;
-            margin-top: 8px;
-            padding: 4px 10px;
-            background: #17a2b8;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .json-toggle:hover {
-            background: #138496;
-        }
-        .json-editor-wrapper {
-            margin-top: 10px;
-            display: none;
-        }
-        .json-editor-wrapper.active {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -142,13 +180,16 @@
 <?php
 include "koneksi.php";
 
+// ============================================
+// CREATE - Tambah Data Mahasiswa Baru
+// ============================================
 if (isset($_POST['simpan'])) {
     $nim = $_POST['nim'];
     $nama = $_POST['nama'];
     $prodi = $_POST['prodi'];
-    $foto = 'foto.jpg'; // default
+    $foto = 'foto.jpg';
     
-    // Handle upload foto
+    // Upload foto
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $target_dir = "";
         $file_extension = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
@@ -160,59 +201,116 @@ if (isset($_POST['simpan'])) {
         }
     }
     
-    // Handle JSON - prioritas dari textarea, fallback ke upload file
-    $json_saved = false;
-    if (!empty($_POST['json_content'])) {
-        // Dari textarea
-        $json_content = $_POST['json_content'];
-        $json_decoded = json_decode($json_content, true);
-        
-        if ($json_decoded !== null) {
-            $json_dir = "Data/";
-            if (!file_exists($json_dir)) {
-                mkdir($json_dir, 0777, true);
+    // Build JSON dari form fields
+    $json_data = [
+        'biodata' => [
+            'nim' => $nim,
+            'nama' => $nama,
+            'tempat_lahir' => $_POST['tempat_lahir'] ?? '',
+            'tanggal_lahir' => $_POST['tanggal_lahir'] ?? '',
+            'alamat' => $_POST['alamat'] ?? ''
+        ],
+        'education' => [],
+        'experience' => [],
+        'skills' => [],
+        'hobbies' => [],
+        'publication' => $_POST['publication'] ?? '',
+        'social_links' => [
+            'instagram' => $_POST['instagram'] ?? '',
+            'whatsapp' => $_POST['whatsapp'] ?? '',
+            'youtube' => $_POST['youtube'] ?? '',
+            'linkedin' => $_POST['linkedin'] ?? ''
+        ]
+    ];
+    
+    // Education
+    if (isset($_POST['edu_tahun'])) {
+        foreach ($_POST['edu_tahun'] as $i => $tahun) {
+            if (!empty($tahun)) {
+                $json_data['education'][] = [
+                    'tahun' => $tahun,
+                    'institusi' => $_POST['edu_institusi'][$i] ?? '',
+                    'deskripsi' => $_POST['edu_deskripsi'][$i] ?? ''
+                ];
             }
-            $json_file = $json_dir . $nim . ".json";
-            file_put_contents($json_file, json_encode($json_decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-            $json_saved = true;
-        } else {
-            echo "<script>alert('JSON tidak valid! Periksa format JSON.');</script>";
-        }
-    } elseif (isset($_FILES['json_file']) && $_FILES['json_file']['error'] == 0) {
-        // Dari upload file
-        $json_dir = "Data/";
-        if (!file_exists($json_dir)) {
-            mkdir($json_dir, 0777, true);
-        }
-        $json_filename = $nim . ".json";
-        $json_file = $json_dir . $json_filename;
-        
-        // Validasi file JSON
-        $json_content = file_get_contents($_FILES['json_file']['tmp_name']);
-        $json_decoded = json_decode($json_content, true);
-        
-        if ($json_decoded !== null) {
-            move_uploaded_file($_FILES['json_file']['tmp_name'], $json_file);
-            $json_saved = true;
-        } else {
-            echo "<script>alert('File JSON tidak valid!');</script>";
         }
     }
     
+    // Experience
+    if (isset($_POST['experience'])) {
+        foreach ($_POST['experience'] as $exp) {
+            if (!empty($exp)) {
+                $json_data['experience'][] = $exp;
+            }
+        }
+    }
+    
+    // Skills
+    if (isset($_POST['skill_kategori'])) {
+        foreach ($_POST['skill_kategori'] as $i => $kategori) {
+            if (!empty($kategori)) {
+                $json_data['skills'][$kategori] = $_POST['skill_value'][$i] ?? '';
+            }
+        }
+    }
+    
+    // Hobbies
+    if (isset($_POST['hobby_icon'])) {
+        foreach ($_POST['hobby_icon'] as $i => $icon) {
+            if (!empty($icon)) {
+                $json_data['hobbies'][] = [
+                    'icon' => $icon,
+                    'name' => $_POST['hobby_name'][$i] ?? ''
+                ];
+            }
+        }
+    }
+    
+    // Simpan JSON
+    $json_dir = "Data/";
+    if (!file_exists($json_dir)) {
+        mkdir($json_dir, 0777, true);
+    }
+    file_put_contents($json_dir . $nim . ".json", json_encode($json_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    
+    // Insert ke database
     mysqli_query($conn, "INSERT INTO profil (nim, nama, prodi, foto) VALUES ('$nim','$nama','$prodi','$foto')");
+    header("Location: adminProfil.php");
+    exit;
 }
 
-if (isset($_GET['hapus'])) {
-    $nim = $_GET['hapus'];
-    mysqli_query($conn, "DELETE FROM profil WHERE nim='$nim'");
+// ============================================
+// READ - Tampilkan Data Mahasiswa (Edit Mode)
+// ============================================
+$edit_nim = "";
+$edit_nama = "";
+$edit_prodi = "";
+$edit_foto = "";
+$edit_json_data = [];
+if (isset($_GET['edit'])) {
+    $edit_nim = $_GET['edit'];
+    $data_edit = mysqli_query($conn, "SELECT * FROM profil WHERE nim='$edit_nim'");
+    $row_edit = mysqli_fetch_assoc($data_edit);
+    $edit_nama = $row_edit['nama'];
+    $edit_prodi = $row_edit['prodi'];
+    $edit_foto = isset($row_edit['foto']) ? $row_edit['foto'] : '';
+    
+    // Baca JSON
+    $json_file_path = "Data/" . $edit_nim . ".json";
+    if (file_exists($json_file_path)) {
+        $edit_json_data = json_decode(file_get_contents($json_file_path), true);
+    }
 }
 
+// ============================================
+// UPDATE - Ubah Data Mahasiswa
+// ============================================
 if (isset($_POST['ubah'])) {
     $nim = $_POST['nim'];
     $nama = $_POST['nama'];
     $prodi = $_POST['prodi'];
     
-    // Handle upload foto
+    // Upload foto baru (opsional)
     $foto_update = "";
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $target_dir = "";
@@ -225,109 +323,244 @@ if (isset($_POST['ubah'])) {
         }
     }
     
-    // Handle JSON - prioritas dari textarea, fallback ke upload file
-    if (!empty($_POST['json_content'])) {
-        // Dari textarea
-        $json_content = $_POST['json_content'];
-        $json_decoded = json_decode($json_content, true);
-        
-        if ($json_decoded !== null) {
-            $json_dir = "Data/";
-            if (!file_exists($json_dir)) {
-                mkdir($json_dir, 0777, true);
+    // Build JSON dari form fields
+    $json_data = [
+        'biodata' => [
+            'nim' => $nim,
+            'nama' => $nama,
+            'tempat_lahir' => $_POST['tempat_lahir'] ?? '',
+            'tanggal_lahir' => $_POST['tanggal_lahir'] ?? '',
+            'alamat' => $_POST['alamat'] ?? ''
+        ],
+        'education' => [],
+        'experience' => [],
+        'skills' => [],
+        'hobbies' => [],
+        'publication' => $_POST['publication'] ?? '',
+        'social_links' => [
+            'instagram' => $_POST['instagram'] ?? '',
+            'whatsapp' => $_POST['whatsapp'] ?? '',
+            'youtube' => $_POST['youtube'] ?? '',
+            'linkedin' => $_POST['linkedin'] ?? ''
+        ]
+    ];
+    
+    // Education
+    if (isset($_POST['edu_tahun'])) {
+        foreach ($_POST['edu_tahun'] as $i => $tahun) {
+            if (!empty($tahun)) {
+                $json_data['education'][] = [
+                    'tahun' => $tahun,
+                    'institusi' => $_POST['edu_institusi'][$i] ?? '',
+                    'deskripsi' => $_POST['edu_deskripsi'][$i] ?? ''
+                ];
             }
-            $json_file = $json_dir . $nim . ".json";
-            file_put_contents($json_file, json_encode($json_decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        } else {
-            echo "<script>alert('JSON tidak valid! Periksa format JSON.');</script>";
-        }
-    } elseif (isset($_FILES['json_file']) && $_FILES['json_file']['error'] == 0) {
-        // Dari upload file
-        $json_dir = "Data/";
-        if (!file_exists($json_dir)) {
-            mkdir($json_dir, 0777, true);
-        }
-        $json_filename = $nim . ".json";
-        $json_file = $json_dir . $json_filename;
-        
-        // Validasi file JSON
-        $json_content = file_get_contents($_FILES['json_file']['tmp_name']);
-        $json_decoded = json_decode($json_content, true);
-        
-        if ($json_decoded !== null) {
-            move_uploaded_file($_FILES['json_file']['tmp_name'], $json_file);
-        } else {
-            echo "<script>alert('File JSON tidak valid!');</script>";
         }
     }
     
+    // Experience
+    if (isset($_POST['experience'])) {
+        foreach ($_POST['experience'] as $exp) {
+            if (!empty($exp)) {
+                $json_data['experience'][] = $exp;
+            }
+        }
+    }
+    
+    // Skills
+    if (isset($_POST['skill_kategori'])) {
+        foreach ($_POST['skill_kategori'] as $i => $kategori) {
+            if (!empty($kategori)) {
+                $json_data['skills'][$kategori] = $_POST['skill_value'][$i] ?? '';
+            }
+        }
+    }
+    
+    // Hobbies
+    if (isset($_POST['hobby_icon'])) {
+        foreach ($_POST['hobby_icon'] as $i => $icon) {
+            if (!empty($icon)) {
+                $json_data['hobbies'][] = [
+                    'icon' => $icon,
+                    'name' => $_POST['hobby_name'][$i] ?? ''
+                ];
+            }
+        }
+    }
+    
+    // Update JSON
+    $json_dir = "Data/";
+    if (!file_exists($json_dir)) {
+        mkdir($json_dir, 0777, true);
+    }
+    file_put_contents($json_dir . $nim . ".json", json_encode($json_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    
+    // Update database
     mysqli_query($conn, "UPDATE profil SET nama='$nama', prodi='$prodi'$foto_update WHERE nim='$nim'");
+    header("Location: adminProfil.php");
+    exit;
 }
 
+// ============================================
+// DELETE - Hapus Data Mahasiswa
+// ============================================
+if (isset($_GET['hapus'])) {
+    $nim = $_GET['hapus'];
+    mysqli_query($conn, "DELETE FROM profil WHERE nim='$nim'");
+}
+
+// ============================================
+// READ - Tampilkan Semua Data Mahasiswa
+// ============================================
 $result = mysqli_query($conn, "SELECT * FROM profil");
-
-$edit_nim = "";
-$edit_nama = "";
-$edit_prodi = "";
-$edit_foto = "";
-$edit_json_exists = false;
-$edit_json_content = "";
-if (isset($_GET['edit'])) {
-    $edit_nim = $_GET['edit'];
-    $data_edit = mysqli_query($conn, "SELECT * FROM profil WHERE nim='$edit_nim'");
-    $row_edit = mysqli_fetch_assoc($data_edit);
-    $edit_nama = $row_edit['nama'];
-    $edit_prodi = $row_edit['prodi'];
-    $edit_foto = isset($row_edit['foto']) ? $row_edit['foto'] : '';
-    
-    // Cek apakah file JSON sudah ada dan baca isinya
-    $json_file_path = "Data/" . $edit_nim . ".json";
-    $edit_json_exists = file_exists($json_file_path);
-    if ($edit_json_exists) {
-        $edit_json_content = file_get_contents($json_file_path);
-    }
-}
 ?>
     <div class="form-crud">
         <form method="post" enctype="multipart/form-data">
-            <div class="form-row">
-                <label>NIM :</label>
-                <input type="text" name="nim" value="<?= $edit_nim ?>" <?= $edit_nim ? 'readonly' : '' ?> required>
-            </div>
-            <div class="form-row">
-                <label>Nama :</label>
-                <input type="text" name="nama" value="<?= $edit_nama ?>" required>
+            
+            <!-- COLUMN 1: Data Inti & Biodata -->
+            <div class="form-section">
+                <h3>📋 Data Inti</h3>
+                <div class="form-row">
+                    <label>NIM:</label>
+                    <input type="text" name="nim" value="<?= $edit_nim ?>" <?= $edit_nim ? 'readonly' : '' ?> required>
                 </div>
-            <div class="form-row">
-                <label>Kode Prodi :</label>
-                <input type="text" name="prodi" value="<?= $edit_prodi ?>" required>
+                <div class="form-row">
+                    <label>Nama:</label>
+                    <input type="text" name="nama" value="<?= $edit_nama ?>" required>
+                </div>
+                <div class="form-row">
+                    <label>Kode Prodi:</label>
+                    <input type="text" name="prodi" value="<?= $edit_prodi ?>" required>
+                </div>
+                <div class="form-row">
+                    <label>Foto:</label>
+                    <input type="file" name="foto" accept="image/*">
+                    <?php if ($edit_foto && $edit_foto != 'foto.jpg') { ?>
+                        <small style="color:#666;font-size:11px;">Saat ini: <?= $edit_foto ?></small>
+                    <?php } ?>
+                </div>
+
+                <h3 style="margin-top:20px;">🏠 Biodata</h3>
+                <div class="form-row">
+                    <label>Tempat Lahir:</label>
+                    <input type="text" name="tempat_lahir" value="<?= htmlspecialchars($edit_json_data['biodata']['tempat_lahir'] ?? '') ?>">
+                </div>
+                <div class="form-row">
+                    <label>Tanggal Lahir:</label>
+                    <input type="text" name="tanggal_lahir" value="<?= htmlspecialchars($edit_json_data['biodata']['tanggal_lahir'] ?? '') ?>" placeholder="DD Month YYYY">
+                </div>
+                <div class="form-row">
+                    <label>Alamat:</label>
+                    <textarea name="alamat" rows="2"><?= htmlspecialchars($edit_json_data['biodata']['alamat'] ?? '') ?></textarea>
+                </div>
+
+                <h3 style="margin-top:20px;">📢 Social Links</h3>
+                <div class="form-row">
+                    <label>Instagram:</label>
+                    <input type="url" name="instagram" value="<?= htmlspecialchars($edit_json_data['social_links']['instagram'] ?? '') ?>" placeholder="https://instagram.com/username">
+                </div>
+                <div class="form-row">
+                    <label>WhatsApp:</label>
+                    <input type="url" name="whatsapp" value="<?= htmlspecialchars($edit_json_data['social_links']['whatsapp'] ?? '') ?>" placeholder="https://wa.me/628xxx">
+                </div>
+                <div class="form-row">
+                    <label>YouTube:</label>
+                    <input type="url" name="youtube" value="<?= htmlspecialchars($edit_json_data['social_links']['youtube'] ?? '') ?>" placeholder="https://youtube.com/@channel">
+                </div>
+                <div class="form-row">
+                    <label>LinkedIn:</label>
+                    <input type="url" name="linkedin" value="<?= htmlspecialchars($edit_json_data['social_links']['linkedin'] ?? '') ?>" placeholder="https://linkedin.com/in/username">
+                </div>
             </div>
-            <div class="form-row">
-                <label>Foto :</label>
-                <input type="file" name="foto" accept="image/*">
-                <?php if ($edit_foto && $edit_foto != 'foto.jpg') { ?>
-                    <small style="display:block;margin-left:96px;color:#666;">Foto saat ini: <?= $edit_foto ?></small>
+
+            <!-- COLUMN 2: Education, Experience, Skills, Hobbies -->
+            <div class="form-section">
+                <h3>🎓 Education</h3>
+                <div id="educationContainer">
+                    <?php
+                    $educations = $edit_json_data['education'] ?? [['tahun' => '', 'institusi' => '', 'deskripsi' => '']];
+                    foreach ($educations as $i => $edu) {
+                    ?>
+                    <div class="dynamic-item">
+                        <input type="text" name="edu_tahun[]" value="<?= htmlspecialchars($edu['tahun'] ?? '') ?>" placeholder="2020-2023" style="width:100%;margin-bottom:5px;">
+                        <input type="text" name="edu_institusi[]" value="<?= htmlspecialchars($edu['institusi'] ?? '') ?>" placeholder="Nama Institusi" style="width:100%;margin-bottom:5px;">
+                        <textarea name="edu_deskripsi[]" rows="2" placeholder="Deskripsi singkat" style="width:100%;"><?= htmlspecialchars($edu['deskripsi'] ?? '') ?></textarea>
+                        <?php if ($i > 0) { ?>
+                        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖ Hapus</button>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
+                </div>
+                <button type="button" class="add-more-btn" onclick="addEducation()">+ Tambah Education</button>
+
+                <h3 style="margin-top:20px;">💼 Experience</h3>
+                <div id="experienceContainer">
+                    <?php
+                    $experiences = $edit_json_data['experience'] ?? [''];
+                    foreach ($experiences as $i => $exp) {
+                    ?>
+                    <div class="dynamic-item">
+                        <input type="text" name="experience[]" value="<?= htmlspecialchars($exp) ?>" placeholder="Posisi - Organisasi (Tahun)" style="width:calc(100% - 50px);">
+                        <?php if ($i > 0) { ?>
+                        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
+                </div>
+                <button type="button" class="add-more-btn" onclick="addExperience()">+ Tambah Experience</button>
+
+                <h3 style="margin-top:20px;">⚡ Skills</h3>
+                <div id="skillsContainer">
+                    <?php
+                    $skills = $edit_json_data['skills'] ?? ['Programming' => ''];
+                    $idx = 0;
+                    foreach ($skills as $kategori => $value) {
+                    ?>
+                    <div class="dynamic-item skill-item">
+                        <input type="text" name="skill_kategori[]" value="<?= htmlspecialchars($kategori) ?>" placeholder="Kategori">
+                        <input type="text" name="skill_value[]" value="<?= htmlspecialchars($value) ?>" placeholder="Daftar skill">
+                        <?php if ($idx > 0) { ?>
+                        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+                        <?php } else { ?>
+                        <span></span>
+                        <?php } ?>
+                    </div>
+                    <?php $idx++; } ?>
+                </div>
+                <button type="button" class="add-more-btn" onclick="addSkill()">+ Tambah Skill</button>
+
+                <h3 style="margin-top:20px;">🎮 Hobbies</h3>
+                <div id="hobbiesContainer">
+                    <?php
+                    $hobbies = $edit_json_data['hobbies'] ?? [['icon' => 'fa-gamepad', 'name' => '']];
+                    foreach ($hobbies as $i => $hobby) {
+                    ?>
+                    <div class="dynamic-item hobby-item">
+                        <input type="text" name="hobby_icon[]" value="<?= htmlspecialchars($hobby['icon'] ?? '') ?>" placeholder="fa-gamepad">
+                        <input type="text" name="hobby_name[]" value="<?= htmlspecialchars($hobby['name'] ?? '') ?>" placeholder="Nama Hobby">
+                        <?php if ($i > 0) { ?>
+                        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+                        <?php } else { ?>
+                        <span></span>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
+                </div>
+                <button type="button" class="add-more-btn" onclick="addHobby()">+ Tambah Hobby</button>
+
+                <h3 style="margin-top:20px;">📝 Publication</h3>
+                <div class="form-row">
+                    <textarea name="publication" rows="3" placeholder="Daftar publikasi atau penelitian"><?= htmlspecialchars($edit_json_data['publication'] ?? '') ?></textarea>
+                </div>
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="form-buttons">
+                <input type="submit" name="<?= $edit_nim ? 'ubah' : 'simpan' ?>" value="<?= $edit_nim ? '💾 SIMPAN PERUBAHAN' : '✅ TAMBAH DATA' ?>">
+                <?php if ($edit_nim) { ?>
+                    <a href="adminProfil.php" style="margin-left:16px;padding:8px 22px;background:#ffebee;border:1px solid #e57373;border-radius:4px;color:#d32f2f;text-decoration:none;font-weight:bold;display:inline-block;">❌ BATAL</a>
                 <?php } ?>
             </div>
-            <div class="form-row">
-                <label>Data JSON :</label>
-                <input type="file" name="json_file" accept=".json">
-                <?php if ($edit_json_exists) { ?>
-                    <small style="display:block;margin-left:96px;color:#666;">JSON tersedia: Data/<?= $edit_nim ?>.json</small>
-                    <button type="button" class="json-toggle" onclick="toggleJsonEditor()">✏️ Edit JSON Langsung</button>
-                <?php } else { ?>
-                    <small style="display:block;margin-left:96px;color:#999;font-size:11px;">Upload file JSON atau isi editor di bawah</small>
-                    <button type="button" class="json-toggle" onclick="toggleJsonEditor()">✏️ Buat JSON Baru</button>
-                <?php } ?>
-                <div class="json-editor-wrapper" id="jsonEditorWrapper">
-                    <textarea name="json_content" id="jsonEditor" class="json-editor" placeholder='Paste atau edit JSON di sini...'><?= htmlspecialchars($edit_json_content) ?></textarea>
-                    <small style="color:#666;font-size:11px;">💡 Tip: Format otomatis saat disimpan. Periksa syntax sebelum submit!</small>
-                </div>
-            </div>
-            <input type="submit" name="<?= $edit_nim ? 'ubah' : 'simpan' ?>" value="<?= $edit_nim ? 'UBAH' : 'SIMPAN' ?>">
-            <?php if ($edit_nim) { ?>
-                <a href="adminProfil.php" style="margin-left:16px;padding:7px 18px;background:#ffebee;border:1px solid #e57373;border-radius:4px;color:#d32f2f;text-decoration:none;font-weight:bold;">BATAL</a>
-            <?php } ?>
         </form>
     </div>
     <table>
@@ -381,17 +614,52 @@ if (isset($_GET['edit'])) {
 </div>
 
 <script>
-function toggleJsonEditor() {
-    var wrapper = document.getElementById('jsonEditorWrapper');
-    wrapper.classList.toggle('active');
+function addEducation() {
+    const container = document.getElementById('educationContainer');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item';
+    item.innerHTML = `
+        <input type="text" name="edu_tahun[]" placeholder="2020-2023" style="width:100%;margin-bottom:5px;">
+        <input type="text" name="edu_institusi[]" placeholder="Nama Institusi" style="width:100%;margin-bottom:5px;">
+        <textarea name="edu_deskripsi[]" rows="2" placeholder="Deskripsi singkat" style="width:100%;"></textarea>
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖ Hapus</button>
+    `;
+    container.appendChild(item);
 }
 
-// Auto-expand textarea saat ada konten
-window.onload = function() {
-    var editor = document.getElementById('jsonEditor');
-    if (editor && editor.value.length > 0) {
-        document.getElementById('jsonEditorWrapper').classList.add('active');
-    }
+function addExperience() {
+    const container = document.getElementById('experienceContainer');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item';
+    item.innerHTML = `
+        <input type="text" name="experience[]" placeholder="Posisi - Organisasi (Tahun)" style="width:calc(100% - 50px);">
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+    `;
+    container.appendChild(item);
+}
+
+function addSkill() {
+    const container = document.getElementById('skillsContainer');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item skill-item';
+    item.innerHTML = `
+        <input type="text" name="skill_kategori[]" placeholder="Kategori">
+        <input type="text" name="skill_value[]" placeholder="Daftar skill">
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+    `;
+    container.appendChild(item);
+}
+
+function addHobby() {
+    const container = document.getElementById('hobbiesContainer');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item hobby-item';
+    item.innerHTML = `
+        <input type="text" name="hobby_icon[]" placeholder="fa-gamepad">
+        <input type="text" name="hobby_name[]" placeholder="Nama Hobby">
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+    `;
+    container.appendChild(item);
 }
 </script>
 

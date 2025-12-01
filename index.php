@@ -29,11 +29,6 @@ if (file_exists($json_file)) {
     $json_content = file_get_contents($json_file);
     $json_data = json_decode($json_content, true);
 }
-
-// Fungsi helper untuk mendapatkan data dengan fallback
-function getJsonData($json_data, $key, $default = '') {
-    return isset($json_data[$key]) ? $json_data[$key] : $default;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
