@@ -5,10 +5,11 @@ Aplikasi web sederhana berbasis **PHP + MySQL + File JSON** untuk mengelola (Cre
 ## 🚀 Fitur Utama
 - **Manajemen Profil Mahasiswa (CRUD)**: Tambah, ubah, hapus data inti (NIM, Nama, Prodi, Foto).
 - **Upload Foto**: Otomatis disimpan dengan pola `foto-{nim}.ext` (fallback ke `foto.jpg`).
-- **Upload File JSON Per Mahasiswa**: Memuat section lanjutan (Education, Experience, Skills, Hobbies, Publication).
+- **Upload File JSON Per Mahasiswa**: Memuat section lanjutan (Education, Experience, Skills, Hobbies, Publication, Social Links).
 - **Template JSON Siap Pakai**: Disediakan di `Data/template.json` untuk memudahkan format standar.
 - **Halaman Tampilan Dinamis (`index.php`)**: Navigasi antar section (Biodata, Education, Experience, Skills, Publication, Hobbies & Interests).
 - **Account Switcher**: Dropdown untuk berganti mahasiswa secara cepat berdasarkan NIM.
+- **Social Links Dinamis**: Setiap mahasiswa dapat memiliki link media sosial berbeda (Instagram, WhatsApp, YouTube, LinkedIn) yang dikonfigurasi via JSON.
 - **Fallback Data**: Jika JSON belum ada, aplikasi menampilkan nilai default yang ramah pengguna.
 - **Download File JSON** dari halaman admin bila tersedia.
 
@@ -54,9 +55,25 @@ Contoh template (`Data/template.json`):
   "experience": ["Posisi / Peran"],
   "skills": {"Kategori": "Daftar skill"},
   "hobbies": [{"icon": "fa-gamepad", "name": "Hobi"}],
-  "publication": "Judul atau daftar publikasi"
+  "publication": "Judul atau daftar publikasi",
+  "social_links": {
+    "instagram": "https://instagram.com/username",
+    "whatsapp": "https://wa.me/628xxx",
+    "youtube": "https://youtube.com/@channel",
+    "linkedin": "https://linkedin.com/in/username"
+  }
 }
 ```
+
+### **Keterangan Field JSON:**
+- `biodata`: Data dasar mahasiswa (NIM, nama, tempat/tanggal lahir, alamat)
+- `education`: Array riwayat pendidikan
+- `experience`: Array pengalaman organisasi/kerja
+- `skills`: Object kategori skill dan deskripsinya
+- `hobbies`: Array hobi dengan ikon Font Awesome
+- `publication`: String publikasi atau penelitian
+- `social_links`: Object link media sosial (opsional, jika kosong akan pakai default atau tidak ditampilkan)
+
 Penamaan file JSON: `Data/<nim>.json` (misal: `Data/2024081015.json`).
 
 ## 🔧 Cara Menjalankan (Laragon / XAMPP)
@@ -101,5 +118,7 @@ Proyek ini dibuat oleh Kelompok UAS PIBS:
 - Upload JSON → Pastikan section di `index.php` berubah sesuai isi file.  
 - Ganti foto → Pastikan foto tampil dan nama file ter-update.  
 - Hapus data → Pastikan tidak bisa lagi diakses via `index.php?nim=...`.  
+- Test Social Links → Ganti mahasiswa via Account Switcher, pastikan social media di footer berubah sesuai JSON masing-masing.
+- Test Fallback → Hapus/kosongkan field di JSON, pastikan data default tetap muncul.  
 ---
 Dibuat untuk pemenuhan tugas PIBS. Silakan ajukan saran atau perbaikan melalui pull request. 😊
